@@ -1,0 +1,24 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <H1>PROJECTS</H1>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Placeat reiciendis ad natus quod possimus dolorem nostrum harum saepe consequuntur tempora?</p>
+    <p>{{projects}}</p>
+    {%for project in projects%}
+    <h2>{{project.name}}</h2>
+    <button>Delete</button>
+    <button>Update</button>
+    
+    {% endfor %}
+
+</body>
+</html>
+{% endblock %}
