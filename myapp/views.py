@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse, JsonResponse
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
 
 from .models import *
 from .forms import *
@@ -50,8 +50,11 @@ def home (request):
 #     return render (request, 'create_task.html', {'form': CreateNewTask()})
 
 def create_task (request):
-    print(request.GET['title'])
-    print(request.GET['description'])
-
-    Task.objects.create(title=request.GET['title'], description = request.GET['description'], project_id=1)
-    return render (request, 'create_task.html', {'form':CreateNewTask})
+    if request.method == 'GET':
+        return render (request, 'create_task.html', {'form':CreateNewTask()})
+    else:
+        # print(request.GET['title'])
+        # print(request.GET['description'])
+        Task.objects.create(title=request.POST['title'], description = request.POST['description'], project_id=1)
+        return redirect('/tasks/')
+    
