@@ -27,7 +27,7 @@ def project(request):
     # projects = Project.objects.all()
 
     # return JsonResponse(projects, safe = False)
-    return render(request, 'projects.html', {'projects': projects})
+    return render(request, 'projects/projects.html', {'projects': projects})
 
 def task (request):
     # task = Task.objects.get(id=id)
@@ -39,7 +39,7 @@ def task (request):
     # tasks = list(Task.objects.values())
     # opcion 2
     tasks = Task.objects.all()
-    return render (request , 'tasks.html', {'tasks': tasks})
+    return render (request , 'tasks/tasks.html', {'tasks': tasks})
 
 def home (request):
     return render(request , 'home.html')
@@ -51,10 +51,26 @@ def home (request):
 
 def create_task (request):
     if request.method == 'GET':
-        return render (request, 'create_task.html', {'form':CreateNewTask()})
+        return render (request, 'tasks/create_task.html', {'form':CreateNewTask()})
     else:
         # print(request.GET['title'])
         # print(request.GET['description'])
         Task.objects.create(title=request.POST['title'], description = request.POST['description'], project_id=1)
         return redirect('/tasks/')
-    
+
+# def create_project(request):
+#     if request.method == 'GET':
+#         return render (request, 'projects/create_project.html', {'form': CreateNewProject()})
+#     else:
+#         print(request.POST)
+#         return render (request, 'projects/create_project.html', {'form': CreateNewProject()})
+
+def create_project(request):
+    if request.method == 'GET':
+        return render (request, 'projects/create_project.html', {'form': CreateNewProject()})
+    else:
+        # print(request.POST)
+        project = Project.objects.create(name= request.POST['name'])
+        print(project)
+
+        return render (request, 'projects/create_project.html', {'form': CreateNewProject()})
